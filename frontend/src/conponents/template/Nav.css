@@ -1,0 +1,16 @@
+.menu a {
+    display: block;
+    list-style: none;
+    text-decoration: none;
+    padding: 15px;
+    color: #F7EFD7;
+}
+
+aside.menu-area{
+    background-color: var(--violet);
+}
+
+.menu a:hover{
+    background: linear-gradient(to left , rgb(148, 206, 229) 20%, var(--green) 80%);
+    color: black;
+}

@@ -1,0 +1,60 @@
+:root {
+  --violet: #9E71A3;
+  --green: #CDF7ED;
+  --nude: #F7EFD7;
+
+  --logo-height: 100px;
+  --header-height: 100px;
+  --aside-width: 225px;
+  --footer-height: 40px;
+
+  --shadow: 0 2px 23px 0 rgb(0, 0, 0, 0.1), 0 2px 49px 0 rgb(0, 0, 0, 0.06);
+}
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap");
+
+h2 {
+  color: var(--violet);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+}
+
+/* Layout em grid*/
+
+.app {
+  margin: 0;
+  display: grid;
+  grid-template-columns: var(--aside-width) 1fr;
+  grid-template-rows: var(--header-height) 1fr var(--footer-height);
+  grid-template-areas:
+    "logo header"
+    "menu content"
+    "menu footer";
+  height: 100vh;
+  background-color: var(--nude);
+}
+
+aside.logo {
+  grid-area: logo;
+  height: var(--logo-height);
+}
+
+header.header {
+  grid-area: header;
+  height: var(--header-height);
+
+}
+
+aside.menu-area {
+  grid-area: menu;
+}
+
+main.content {
+  grid-area: content;
+}
+
+footer.footer {
+  grid-area: footer;
+}
