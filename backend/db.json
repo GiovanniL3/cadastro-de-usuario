@@ -1,69 +1,14 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Arthur Oliveira",
-      "email": "aoliveira@cod3r.com.br"
-    },
-    {
-      "id": 2,
-      "name": "Maria Julia da Silva",
-      "email": "mjds@empresa.com"
-    },
-    {
-      "name": "Bananinha gameplay",
-      "email": "banana.republic@bacanal.com.br",
-      "id": 3
-    },
-    {
-      "name": "testti",
-      "email": "lalatest@logo.com",
-      "id": 4
-    },
-    {
-      "name": "nomi",
-      "email": "eu@email.com",
-      "id": 5
-    },
-    {
-      "name": "e us gri",
-      "email": "usguri@gabagu.net",
-      "id": 6
-    },
-    {
-      "name": "govinhas",
+      "name": "Giovanni",
       "email": "luigimachado111@gmail.com",
-      "id": 7
+      "id": 1
     },
     {
-      "name": "",
-      "email": "",
-      "id": 8
-    },
-    {
-      "name": "sr",
-      "email": "dgfhc",
-      "id": 9
-    },
-    {
-      "name": "giovanni ",
-      "email": "luigimachado111@gmail.net",
-      "id": 10
-    },
-    {
-      "name": "gcuyfk",
-      "email": "ykj",
-      "id": 11
-    },
-    {
-      "name": "rsgf",
-      "email": "th",
-      "id": 12
-    },
-    {
-      "name": "govioanani",
-      "email": "luigimachado111@gmail.com",
-      "id": 13
+      "name": "Govinhas",
+      "email": "gfasciana@hotmail.com",
+      "id": 2
     }
   ]
 }

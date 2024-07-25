@@ -4,6 +4,7 @@ header.header{
     overflow: hidden;
     white-space: nowrap;
     box-shadow: var(--shadow);
+    height: var(--heade-heigth);
 }
 
 header.header h2 {

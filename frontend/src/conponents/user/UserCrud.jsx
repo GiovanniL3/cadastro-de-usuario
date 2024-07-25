@@ -1,52 +1,55 @@
-import React, { Component } from "react";
-import Main from "../template/Main";
-import axios from "axios";
+import React, { Component } from "react"
+import Main from "../template/Main"
+import axios from "axios"
 
 const headerProps = {
   icon: "users",
   title: "Users",
-  subtitle: "Users register: Creat, Read, Update, Delete!!",
-};
+  subtitle: "Users register: Create, Read, Update, Delete!!"
+}
 
-const baseUrl = "http://localhost:3001/users";
-const initialSatate = {
+const baseUrl = "http://localhost:3001/users"
+const initialState = {
   user: { name: "", email: "" },
-  list: [],
-};
+  list: []
+}
 
 export default class UserCrud extends Component {
-  state = { ...initialSatate };
+  state = { ...initialState }
 
-  clear() {
-    this.setState({ use: initialSatate.user });
+  componentWillMount() {
+    axios(baseUrl).then(resp => {
+      this.setState({ list: resp.data })
+    })
   }
 
-  getUpdatesLits(user) {
-    const list = this.state.list.filer(u => u.id !== user.id);
-    list.unshift(user);
-    return list;
+  clear() {
+    this.setState({ user: initialState.user })
+  }
+
+  getUpdatedList(user, add = true) {
+    const list = this.state.list.filter(u => u.id !== user.id)
+    if (add) list.unshift(user)
+    return list
   }
 
   save() {
-    const user = this.state.user;
-    const method = user.id ? "put" : "post";
-    const url = user.id ? `${baseUrl}/${user.id}` : baseUrl;
-    axios[method](url, user)
-        .then((resp) => {
-            const list = this.getUpdatesLits(resp.data);
-            this.setState({ user: initialSatate.user, list });
-    });
+    const user = this.state.user
+    const method = user.id ? "put" : "post"
+    const url = user.id ? `${baseUrl}/${user.id}` : baseUrl
+    axios[method](url, user).then(resp => {
+      const list = this.getUpdatedList(resp.data)
+      this.setState({ user: initialState.user, list })
+    })
   }
 
-  updateFields(event) {
-    const user = {
-      ...this.state.user,
-    }; /* Clona as informacoes no formulario */
-    user[event.target.name] = event.target.value;
-    this.setState({ user });
+  updateField(event) {
+    const user = { ...this.state.user }
+    user[event.target.name] = event.target.value
+    this.setState({ user })
   }
 
-  renderForm() { /* JSX */
+  renderForm() {
     return (
       <div className="form">
         <div className="row">
@@ -58,22 +61,21 @@ export default class UserCrud extends Component {
                 className="form-control"
                 name="name"
                 value={this.state.user.name}
-                onChange={(e) => this.updateFields(e)}
+                onChange={e => this.updateField(e)}
                 placeholder="Type your name..."
               />
             </div>
           </div>
-
           <div className="col-12 col-md-6">
             <div className="form-group">
-              <label>E-mail</label>
+              <label>Email</label>
               <input
                 type="email"
-                /* text */ className="form-control"
+                className="form-control"
                 name="email"
                 value={this.state.user.email}
-                onChange={(e) => this.updateFields(e)}
-                placeholder="Type your e-mail..."
+                onChange={e => this.updateField(e)}
+                placeholder="Type your email..."
               />
             </div>
           </div>
@@ -81,30 +83,74 @@ export default class UserCrud extends Component {
         <hr />
         <div className="row">
           <div className="col-12 d-flex justify-content-end">
-            <button className="btn btn-primary" onClick={(e) => this.save(e)}>
+            <button className="btn btn-primary" onClick={e => this.save(e)}>
               Save
             </button>
             <button
-              className="btn btn-secundary ml-2"
-              onClick={(e) => this.clear(e)}
+              className="btn btn-secondary ml-2"
+              onClick={e => this.clear(e)}
             >
               Cancel
             </button>
           </div>
         </div>
       </div>
-    );
+    )
   }
 
-  renderTable() {}
+  load(user) {
+    this.setState({ user })
+  }
 
-  renderRow() {}
+  remove(user) {
+    axios.delete(`${baseUrl}/${user.id}`).then(resp => {
+      const list = this.getUpdatedList(user, false)
+      this.setState({ list })
+    })
+  }
+
+  renderTable() {
+    return (
+      <table className="table mt-4">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>{this.renderRows()}</tbody>
+      </table>
+    )
+  }
+
+  renderRows() {
+    return this.state.list.map(user => {
+      return (
+        <tr key={user.id}>
+          <td>{user.id}</td>
+          <td>{user.name}</td>
+          <td>{user.email}</td>
+          <td>
+            <button className="btn btn-warning" onClick={() => this.load(user)}>
+              <i className="fa fa-pencil"></i>
+            </button>
+            <button className="btn btn-danger ml-2" onClick={() => this.remove(user)}>
+              <i className="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      )
+    })
+  }
 
   render() {
     return (
-    <Main {...headerProps}>
+      <Main {...headerProps}>
         {this.renderForm()}
-    </Main>
+        {this.renderTable()}
+      </Main>
     )
   }
 }
